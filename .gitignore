@@ -1,0 +1,29 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+app
+simple-splunk-go
+kubectl
+
+# Test binary
+*.test
+
+# Output of go build
+*.out
+
+# Go workspace file
+go.work
+
+# Documentation files
+DEEP_DIVE.md
+TROUBLESHOOT.md
+
+# Scripts and extra configs
+start-podman.sh
+stop-podman.sh
+basic-kubernetes.yaml
+test-hec-config.yaml
+basic-otel-config.yaml

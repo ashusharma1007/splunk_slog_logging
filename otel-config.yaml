@@ -1,0 +1,18 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+exporters:
+  splunk_hec:
+    token: "abcd1234-efgh-5678-ijkl-9012mnop3456"
+    endpoint: "http://splunk:8088/services/collector"
+  debug:
+    verbosity: detailed
+
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      exporters: [debug, splunk_hec]

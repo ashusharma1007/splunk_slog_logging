@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  splunk:
+    image: docker.io/splunk/splunk:latest
+    container_name: splunk
+    hostname: splunk
+    environment:
+      SPLUNK_START_ARGS: '--accept-license'
+      SPLUNK_GENERAL_TERMS: '--accept-sgt-current-at-splunk-com'
+      SPLUNK_PASSWORD: 'Admin123!'
+      SPLUNK_HEC_TOKEN: 'abcd1234-efgh-5678-ijkl-9012mnop3456'
+    ports:
+      - "8000:8000"  
+      - "8088:8088"   # HTTP Event Collector
+    volumes:
+      - splunk-data:/opt/splunk/var
+      - splunk-etc:/opt/splunk/etc
+
+  otel-collector:
+    image: docker.io/otel/opentelemetry-collector-contrib:latest
+    container_name: otel-collector
+    command: ["--config=/etc/otel-config.yaml"]
+    ports:
+      - "4317:4317"   
+      - "4318:4318"   
+    volumes:
+      - ./otel-config.yaml:/etc/otel-config.yaml:Z
+    depends_on:
+      - splunk
+
+volumes:
+  splunk-data:
+  splunk-etc:
