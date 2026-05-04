@@ -15,14 +15,10 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.26.0"
 )
 
-// OpenTelemetry logging demo
-// Sends logs directly to OTel collector via gRPC
-
 func main() {
 	logger, cleanup := initOtelLogger()
 	defer cleanup()
 
-	// run the application
 	runApp(logger)
 }
 
