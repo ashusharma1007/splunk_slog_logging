@@ -28,7 +28,18 @@ services:
       - ./otel-config.yaml:/etc/otel-config.yaml:Z
     depends_on:
       - splunk
+  elasticsearch:
+    image: docker.io/elasticsearch:8.16.1
+    container_name: elasticsearch                                                                                     
+    environment:
+      - discovery.type=single-node                                                                                    
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    volumes:                                                                                                          
+      - es-data:/usr/share/elasticsearch/data
 
 volumes:
   splunk-data:
   splunk-etc:
+  es-data:
